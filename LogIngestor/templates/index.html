@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Query Interface</title>
+</head>
+<body>
+    <h1>Log Query Interface</h1>
+
+    <form id="logQueryForm">
+        <label for="searchQuery">Search Query:</label>
+        <input type="text" id="searchQuery" name="searchQuery">
+
+        <label for="level">Level:</label>
+        <input type="text" id="level" name="level">
+
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message">
+
+        <label for="resourceId">Resource ID:</label>
+        <input type="text" id="resourceId" name="resourceId">
+
+        <label for="timestamp">Timestamp:</label>
+        <input type="text" id="timestamp" name="timestamp">
+
+        <label for="traceId">Trace ID:</label>
+        <input type="text" id="traceId" name="traceId">
+
+        <label for="spanId">Span ID:</label>
+        <input type="text" id="spanId" name="spanId">
+
+        <label for="commit">Commit:</label>
+        <input type="text" id="commit" name="commit">
+
+        <label for="parentResourceId">Parent Resource ID:</label>
+        <input type="text" id="parentResourceId" name="parentResourceId">
+
+        <label for="startDate">Start Date:</label>
+        <input type="text" id="startDate" name="startDate" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+
+        <label for="endDate">End Date:</label>
+        <input type="text" id="endDate" name="endDate" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+
+        <button type="submit">Search</button>
+    </form>
+
+    <div id="searchResults">
+        <h2>Search Results</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Level</th>
+                    <th>Message</th>
+                    <th>Resource ID</th>
+                    <th>Timestamp</th>
+                    <th>Trace ID</th>
+                    <th>Span ID</th>
+                    <th>Commit</th>
+                    <th>Parent Resource ID</th>
+                </tr>
+            </thead>
+            <tbody id="resultsTableBody">
+                <!-- Display search results here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('logQueryForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const searchQuery = document.getElementById('searchQuery').value;
+            const level = document.getElementById('level').value;
+            const message = document.getElementById('message').value;
+            const resourceId = document.getElementById('resourceId').value;
+            const timestamp = document.getElementById('timestamp').value;
+            const traceId = document.getElementById('traceId').value;
+            const spanId = document.getElementById('spanId').value;
+            const commit = document.getElementById('commit').value;
+            const parentResourceId = document.getElementById('parentResourceId').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            const url = `/query?q=${encodeURIComponent(searchQuery)}&level=${encodeURIComponent(level)}&message=${encodeURIComponent(message)}&resourceId=${encodeURIComponent(resourceId)}&timestamp=${encodeURIComponent(timestamp)}&traceId=${encodeURIComponent(traceId)}&spanId=${encodeURIComponent(spanId)}&commit=${encodeURIComponent(commit)}&parentResourceId=${encodeURIComponent(parentResourceId)}&start_date=${encodeURIComponent(startDate)}&end_date=${encodeURIComponent(endDate)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsTableBody = document.getElementById('resultsTableBody');
+                    resultsTableBody.innerHTML = '';
+
+                    data.data.forEach(log => {
+                        const logRow = document.createElement('tr');
+                        logRow.innerHTML = `
+                            <td>${log.level}</td>
+                            <td>${log.message}</td>
+                            <td>${log.resourceId}</td>
+                            <td>${log.timestamp}</td>
+                            <td>${log.traceId}</td>
+                            <td>${log.spanId}</td>
+                            <td>${log.commit}</td>
+                            <td>${log.metadata ? log.metadata.parentResourceId : ''}</td>
+                        `;
+                        resultsTableBody.appendChild(logRow);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
+</html>
