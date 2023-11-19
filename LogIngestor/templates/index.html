@@ -1,49 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log Query Interface</title>
-</head>
-<body>
-    <h1>Log Query Interface</h1>
-
-    <form id="logQueryForm">
-        <label for="searchQuery">Search Query:</label>
-        <input type="text" id="searchQuery" name="searchQuery">
-
-        <label for="level">Level:</label>
-        <input type="text" id="level" name="level">
-
-        <label for="message">Message:</label>
-        <input type="text" id="message" name="message">
-
-        <label for="resourceId">Resource ID:</label>
-        <input type="text" id="resourceId" name="resourceId">
-
-        <label for="timestamp">Timestamp:</label>
-        <input type="text" id="timestamp" name="timestamp">
-
-        <label for="traceId">Trace ID:</label>
-        <input type="text" id="traceId" name="traceId">
-
-        <label for="spanId">Span ID:</label>
-        <input type="text" id="spanId" name="spanId">
-
-        <label for="commit">Commit:</label>
-        <input type="text" id="commit" name="commit">
-
-        <label for="parentResourceId">Parent Resource ID:</label>
-        <input type="text" id="parentResourceId" name="parentResourceId">
-
-        <label for="startDate">Start Date:</label>
-        <input type="text" id="startDate" name="startDate" placeholder="YYYY-MM-DDTHH:MM:SSZ">
-
-        <label for="endDate">End Date:</label>
-        <input type="text" id="endDate" name="endDate" placeholder="YYYY-MM-DDTHH:MM:SSZ">
-
-        <button type="submit">Search</button>
-    </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Log Query Interface</title>
+        <style>
+            #logQueryForm {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+    
+            #logQueryForm label {
+                grid-column: span 1;
+            }
+    
+            #logQueryForm input {
+                grid-column: span 1;
+                width: 100%;
+                box-sizing: border-box;
+            }
+    
+            #logQueryForm button {
+                grid-column: span 2;
+                width: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Log Query Interface</h1>
+    
+        <form id="logQueryForm">
+            <label for="searchQuery">Search Query:</label>
+            <input type="text" id="searchQuery" name="searchQuery">
+    
+            <label for="level">Level:</label>
+            <input type="text" id="level" name="level">
+    
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message">
+    
+            <label for="resourceId">Resource ID:</label>
+            <input type="text" id="resourceId" name="resourceId">
+    
+            <label for="timestamp">Timestamp:</label>
+            <input type="text" id="timestamp" name="timestamp">
+    
+            <label for="traceId">Trace ID:</label>
+            <input type="text" id="traceId" name="traceId">
+    
+            <label for="spanId">Span ID:</label>
+            <input type="text" id="spanId" name="spanId">
+    
+            <label for="commit">Commit:</label>
+            <input type="text" id="commit" name="commit">
+    
+            <label for="parentResourceId">Parent Resource ID:</label>
+            <input type="text" id="parentResourceId" name="parentResourceId">
+    
+            <label for="startDate">Start Date:</label>
+            <input type="text" id="startDate" name="startDate" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+    
+            <label for="endDate">End Date:</label>
+            <input type="text" id="endDate" name="endDate" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+    
+            <button type="submit">Search</button>
+        </form>
 
     <div id="searchResults">
         <h2>Search Results</h2>
